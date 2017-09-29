@@ -124,9 +124,47 @@ class TestSudokuGrid(unittest.TestCase):
         log.debug(grid)
         self.assertTrue(grid.solved())
 
+    def test_solve3(self):
+        log = logging.getLogger('TestSudokuGrid.test_solve3')
+        grid = SudokuGrid()
+        grid.fill([
+            [0, 5, 0, 0, 0, 0, 0, 4, 0],
+            [0, 2, 0, 0, 0, 6, 8, 0, 1],
+            [3, 0, 0, 9, 0, 0, 0, 0, 0],
+            [0, 0, 0, 6, 0, 9, 7, 2, 0],
+            [0, 0, 0, 0, 0, 1, 3, 0, 5],
+            [0, 0, 0, 5, 0, 4, 1, 8, 0],
+            [8, 0, 0, 2, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 8, 4, 0, 7],
+            [0, 4, 0, 0, 0, 0, 0, 9, 0]
+        ])
+        log.debug(grid)
+        grid.solve()
+        log.debug(grid)
+        self.assertTrue(grid.solved())
+
+    def test_solve4(self):
+        log = logging.getLogger('TestSudokuGrid.test_solve4')
+        grid = SudokuGrid()
+        grid.fill([
+            [0, 0, 5, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 3, 5, 2, 0, 0, 0],
+            [6, 0, 0, 4, 0, 0, 5, 8, 0],
+            [0, 2, 4, 0, 0, 5, 0, 0, 8],
+            [0, 5, 0, 0, 0, 4, 1, 0, 0],
+            [0, 9, 0, 1, 3, 0, 0, 0, 0],
+            [0, 0, 9, 0, 4, 0, 0, 0, 2],
+            [0, 0, 1, 0, 0, 0, 0, 5, 7],
+            [0, 0, 0, 8, 0, 0, 3, 4, 0]
+        ])
+        log.debug(grid)
+        grid.solve()
+        log.debug(grid)
+        self.assertTrue(grid.solved())
+
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stderr)
-    logging.getLogger('TestSudokuGrid.test_solve2').setLevel(
-        logging.DEBUG)
+    logging.getLogger('TestSudokuGrid.test_solve4').setLevel(
+        logging.WARN)
     unittest.main()
