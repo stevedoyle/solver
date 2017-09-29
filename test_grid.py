@@ -31,3 +31,16 @@ class TestGrid(unittest.TestCase):
         self.assertFalse(grid.solved())
         grid.fill([[1, 2], [2, 1]])
         self.assertTrue(grid.solved())
+
+    def test_fill(self):
+        grid = Grid(4)
+        grid.fill([
+            [0, 0, 7, 0],
+            [0, 0, 0, 3],
+            [9, 6, 0, 0],
+            [8, 0, 0, 4]
+        ])
+        self.assertEqual(grid.value(0, 2), 7)
+        self.assertEqual(grid.value(2, 0), 9)
+        self.assertEqual(grid.value(3, 3), 4)
+        self.assertIsNone(grid.value(0, 0))
