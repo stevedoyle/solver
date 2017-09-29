@@ -81,6 +81,35 @@ class Grid(object):
 
         return True
 
+    def solve(self):
+        for x in range(10):
+            self.reduce()
+            if self.solved():
+                break
+
+    def reduce(self):
+        self.reduceRows()
+        self.reduceCols()
+
+    def reduceRows(self):
+        for i in range(self.nrows):
+            self.reduceCellGrp(self.row(i))
+
+    def reduceCols(self):
+        for i in range(self.ncols):
+            self.reduceCellGrp(self.col(i))
+
+    def reduceCellGrp(self, cellGrp):
+        for x in range(1, 10):
+            count = 0
+            pos = 0
+            for (r, c) in cellGrp:
+                if x in self.candidates(r, c):
+                    count += 1
+                    pos = (r, c)
+            if count == 1:
+                self.setValue(pos[0], pos[1], x)
+
     def __str__(self):
         result = ''
         for r in range(self.nrows):
@@ -121,12 +150,6 @@ class SudokuGrid(Grid):
                 grp.append((r, c))
         return grp
 
-    def solve(self):
-        for x in range(10):
-            self.reduce()
-            if self.solved():
-                break
-
     def solved(self):
         if not super(SudokuGrid, self).solved():
             return False
@@ -139,29 +162,19 @@ class SudokuGrid(Grid):
         return True
 
     def reduce(self):
-        self.reduceRows()
-        self.reduceCols()
+        super(SudokuGrid, self).reduce()
         self.reduceSubgrids()
-
-    def reduceRows(self):
-        for i in range(self.nrows):
-            self.reduceCellGrp(self.row(i))
-
-    def reduceCols(self):
-        for i in range(self.ncols):
-            self.reduceCellGrp(self.col(i))
 
     def reduceSubgrids(self):
         for i in range(self.nrows):
             self.reduceCellGrp(self.subgrid(i))
 
-    def reduceCellGrp(self, cellGrp):
-        for x in range(1, 10):
-            count = 0
-            pos = 0
-            for (r, c) in cellGrp:
-                if x in self.candidates(r, c):
-                    count += 1
-                    pos = (r, c)
-            if count == 1:
-                self.setValue(pos[0], pos[1], x)
+
+class FutosjikiGrid(Grid):
+
+    def __init__(self, size):
+        super(FutosjikiGrid, self).__init__(size)
+        self.rules = []
+
+    def solve(self):
+        pass
