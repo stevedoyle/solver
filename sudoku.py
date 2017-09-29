@@ -106,8 +106,6 @@ class SudokuGrid(Grid):
         for r in range(minr, minr+3):
             for c in range(minc, minc+3):
                 self.cells[r][c].eliminate(value)
-        if row == 0 and col == 7 and value == 4:
-            print(self.cells[4][6].candidates)
 
     def subgridBounds(self, row, col):
         minr = 3 * int(row / 3)
