@@ -8,7 +8,7 @@ At the moment, solver is simply a library of utilities. After cloning the repo, 
 
 `python3 -m unittest discover`
 
-## Example
+## Sudoku Example
     grid = SudokuGrid()
     grid.fill([
         [0, 0, 5, 0, 0, 0, 0, 0, 0],
@@ -23,6 +23,19 @@ At the moment, solver is simply a library of utilities. After cloning the repo, 
     ])
     grid.solve()
     print(grid)
+
+## Futoskiki Example
+    grid = FutosjikiGrid(4)
+    grid.fill([
+        [3, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ])
+    grid.addRule((1, 0), (1, 1))
+    grid.addRule((2, 0), (1, 0))
+    grid.addRule((2, 2), (3, 2))
+    grid.solve()
 
 
 ## License
