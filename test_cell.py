@@ -21,3 +21,15 @@ class TestCell(unittest.TestCase):
         self.assertEqual(cell.candidates, [1, 2, 4, 5])
         cell.eliminate(3)
         self.assertEqual(cell.candidates, [1, 2, 4, 5])
+
+    def test_eliinateHigherThan(self):
+        cell = Cell(5)
+        cell.eliminateHigherThan(4)
+        self.assertEqual(cell.candidates, [1, 2, 3, 4])
+        cell.eliminateHigherThan(1)
+        self.assertEqual(cell.candidates, [1])
+
+    def test_eliinateLessThan(self):
+        cell = Cell(5)
+        cell.eliminateLessThan(4)
+        self.assertEqual(cell.candidates, [4, 5])

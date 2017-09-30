@@ -21,6 +21,12 @@ class Cell(object):
         except ValueError:
             pass
 
+    def eliminateHigherThan(self, value):
+        self.candidates = [x for x in self.candidates if x <= value]
+
+    def eliminateLessThan(self, value):
+        self.candidates = [x for x in self.candidates if x >= value]
+
 
 class Grid(object):
     """A Grid of cells
@@ -176,5 +182,35 @@ class FutosjikiGrid(Grid):
         super(FutosjikiGrid, self).__init__(size)
         self.rules = []
 
-    def solve(self):
-        pass
+    def addRule(self, hi, lo):
+        self.rules.append((hi, lo))
+
+    def eliminateHigherThan(self, row, col, value):
+        self.cells[row][col].eliminate(set(range(value+1, self.size+1)))
+
+    def eliminateLessThan(self, row, col, value):
+        self.cells[row][col].eliminate(set(range(1, value+1)))
+
+    def reduce(self):
+        super(FutosjikiGrid, self).reduce()
+        self.reduceRules()
+
+    def reduceRules(self):
+        for (hi, lo) in self.rules:
+            hiCell = self.cells[hi[0]][hi[1]]
+            loCell = self.cells[lo[0]][lo[1]]
+            # Low cell can't have candidates higher than the high cell value -1
+            # or higher than the high cell lowest candidate - 1
+            val = hiCell.value if hiCell.value else max(hiCell.candidates)
+            loCell.eliminateHigherThan(val - 1)
+
+            # High cell can't have candidates lower than the low cell value +1
+            # or lower than the low cells highest candidate + 1
+            val = loCell.value if loCell.value else min(loCell.candidates)
+            hiCell.eliminateLessThan(val + 1)
+
+            if len(hiCell.candidates) == 1:
+                self.setValue(hi[0], hi[1], hiCell.candidates[0])
+
+            if len(loCell.candidates) == 1:
+                self.setValue(lo[0], lo[1], loCell.candidates[0])

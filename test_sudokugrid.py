@@ -165,6 +165,6 @@ class TestSudokuGrid(unittest.TestCase):
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stderr)
-    logging.getLoggerClassr('TestSudokuGrid.test_solve4').setLevel(
-        logging.WARN)
+    logging.getLogger('TestSudokuGrid.test_solve4').setLevel(
+        logging.DEBUG)
     unittest.main()
