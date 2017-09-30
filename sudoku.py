@@ -1,4 +1,5 @@
 
+
 class Cell(object):
     """A Cell in a grid
 
@@ -91,7 +92,8 @@ class Grid(object):
         for x in range(10):
             self.reduce()
             if self.solved():
-                break
+                return True
+        return False
 
     def reduce(self):
         self.reduceRows()
