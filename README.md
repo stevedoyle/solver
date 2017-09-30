@@ -6,9 +6,10 @@ A set of utilities for solving grid based puzzles including sudoku.
 
 At the moment, solver is simply a library of utilities. After cloning the repo, run the unit tests to make sure that everything is working.
 
-`python3 -m unittest discover`
+    python3 -m unittest discover
 
-## Sudoku Example
+## Examples
+### Sudoku
     grid = SudokuGrid()
     grid.fill([
         [0, 0, 5, 0, 0, 0, 0, 0, 0],
@@ -24,7 +25,7 @@ At the moment, solver is simply a library of utilities. After cloning the repo, 
     grid.solve()
     print(grid)
 
-## Futoskiki Example
+### Futoskiki
     grid = FutosjikiGrid(4)
     grid.fill([
         [3, 0, 0, 0],
