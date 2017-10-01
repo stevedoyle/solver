@@ -29,9 +29,9 @@ class TestFutosjikiGrid(unittest.TestCase):
         log.debug(grid)
         self.assertTrue(grid.solved())
 
-    def test_solve_without_solution(self):
+    def test_solve2(self):
         log = logging.getLogger(
-            'TestFutosjikiGrid.test_solve_without_solution')
+            'TestFutosjikiGrid.test_solve2')
         grid = FutosjikiGrid(5)
         grid.fill([
             [0, 0, 0, 0, 0],
@@ -51,10 +51,7 @@ class TestFutosjikiGrid(unittest.TestCase):
         log.debug(grid)
         grid.solve()
         log.debug(grid)
-        for r in range(5):
-            for c in range(5):
-                log.debug('[%d][%d] = %s' % (r, c, grid.candidates(r, c)))
-        self.assertFalse(grid.solved())
+        self.assertTrue(grid.solved())
 
 
 if __name__ == "__main__":

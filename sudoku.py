@@ -22,6 +22,9 @@ class Cell(object):
         except ValueError:
             pass
 
+    def eliminateMultiple(self, values):
+        self.candidates = [x for x in self.candidates if x not in values]
+
     def eliminateHigherThan(self, value):
         self.candidates = [x for x in self.candidates if x <= value]
 
@@ -117,6 +120,26 @@ class Grid(object):
                     pos = (r, c)
             if count == 1:
                 self.setValue(pos[0], pos[1], x)
+
+        self.reduceWithPairs(cellGrp)
+
+    def reduceWithPairs(self, cellGrp):
+        pairs = {}
+        for (r, c) in cellGrp:
+            candidates = tuple(self.candidates(r, c))
+            if len(candidates) == 2:
+                if candidates in pairs:
+                    pairs[candidates].append((r, c))
+                else:
+                    pairs[candidates] = [(r, c)]
+
+        for (candidates, cells) in pairs.items():
+            if len(cells) != 2:
+                continue
+            for (r, c) in cellGrp:
+                if (r, c) in cells:
+                    continue
+                self.cells[r][c].eliminateMultiple(candidates)
 
     def __str__(self):
         result = ''

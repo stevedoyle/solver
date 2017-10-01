@@ -22,6 +22,14 @@ class TestCell(unittest.TestCase):
         cell.eliminate(3)
         self.assertEqual(cell.candidates, [1, 2, 4, 5])
 
+    def test_eliminateMultiple(self):
+        cell = Cell(5)
+        self.assertEqual(cell.candidates, [1, 2, 3, 4, 5])
+        cell.eliminateMultiple((1, 2))
+        self.assertEqual(cell.candidates, [3, 4, 5])
+        cell.eliminateMultiple([3, 4])
+        self.assertEqual(cell.candidates, [5])
+
     def test_eliinateHigherThan(self):
         cell = Cell(5)
         cell.eliminateHigherThan(4)
